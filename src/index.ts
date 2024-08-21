@@ -1,5 +1,9 @@
 import fs from 'node:fs/promises'
+import process from 'node:process'
+import dotenv from 'dotenv'
 import type { ArticleData, Data } from './types'
+
+dotenv.config()
 
 export async function getArticles(user_id: string, cursor: string = '0') {
   const resp = await fetch('https://api.juejin.cn/content_api/v1/article/query_list', {
@@ -44,7 +48,11 @@ export async function multipleArticles(user_id: string, cursor: string = '0', ma
 }
 
 async function starter() {
-  const data = await multipleArticles('3966693685871694', '0', 2)
+  const data = await multipleArticles(
+    `${process.env.USERID}`,
+    `${process.env.CURSOR}`,
+    Number(process.env.MAX_DEPTH),
+  )
   fs.writeFile('data.json', JSON.stringify(data))
 }
 

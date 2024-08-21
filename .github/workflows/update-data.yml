@@ -9,6 +9,11 @@ on:
 jobs:
   update-data:
     runs-on: ubuntu-latest
+    env:
+      USERID: ${{ secrets.USERID }}
+      CURSOR: ${{ secrets.CURSOR }}
+      MAX_DEPTH: ${{ secrets.MAX_DEPTH }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
