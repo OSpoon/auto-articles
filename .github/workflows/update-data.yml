@@ -13,21 +13,30 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+
+      - name: Set node
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: lts/*
+
+      - name: Setup
+        run: npm i -g @antfu/ni
 
       - name: Install dependencies
-        run: npm install
+        run: ni
 
       - name: Update data
-        run: node update-data.js
+        run: nr start
 
       - name: Commit and push changes
-        uses: stefanzonca/git-commit-and-push-action@master
+        uses: EndBug/add-and-commit@v9
         with:
-          commit_message: 'chore: update data.json'
+          message: 'chore: update data.json'
+          add: data/data.json
+          force: true
+          author_name: OSpoon
+          author_email: zxin088@gmail.com
           branch: main
-          add_files: data/data.json
-          force_push: true
+          tag: Update Data
