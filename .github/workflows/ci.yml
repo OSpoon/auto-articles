@@ -12,6 +12,11 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    env:
+      USERID: ${{ secrets.USERID }}
+      CURSOR: ${{ secrets.CURSOR }}
+      MAX_DEPTH: ${{ secrets.MAX_DEPTH }}
+
     steps:
       - uses: actions/checkout@v3
 
@@ -34,6 +39,11 @@ jobs:
 
   typecheck:
     runs-on: ubuntu-latest
+    env:
+      USERID: ${{ secrets.USERID }}
+      CURSOR: ${{ secrets.CURSOR }}
+      MAX_DEPTH: ${{ secrets.MAX_DEPTH }}
+
     steps:
       - uses: actions/checkout@v3
 
@@ -56,6 +66,10 @@ jobs:
 
   test:
     runs-on: ${{ matrix.os }}
+    env:
+      USERID: ${{ secrets.USERID }}
+      CURSOR: ${{ secrets.CURSOR }}
+      MAX_DEPTH: ${{ secrets.MAX_DEPTH }}
 
     strategy:
       matrix:
